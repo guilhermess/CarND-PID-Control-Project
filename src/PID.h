@@ -1,46 +1,69 @@
 #ifndef PID_H
 #define PID_H
 
+#include <vector>
+
+class Twiddle;
+
 class PID {
 public:
-  /*
-  * Errors
-  */
-  double p_error;
-  double i_error;
-  double d_error;
-
-  /*
-  * Coefficients
-  */ 
-  double Kp;
-  double Ki;
-  double Kd;
 
   /*
   * Constructor
   */
-  PID();
+  PID(double Kp, double Ki, double Kd);
 
   /*
-  * Destructor.
-  */
-  virtual ~PID();
-
-  /*
-  * Initialize PID.
-  */
-  void Init(double Kp, double Ki, double Kd);
-
-  /*
-  * Update the PID error variables given cross track error.
-  */
+* Update the PID error variables given cross track error.
+*/
   void UpdateError(double cte);
 
   /*
   * Calculate the total PID error.
   */
-  double TotalError();
+  double getTotalError() const { return total_error_; }
+
+  inline const double &operator[](std::size_t index) const
+  {
+    return pid_[index];
+  }
+
+  double getSteering() const;
+
+  double getMaxCte() const { return max_cte_; }
+
+protected:
+  friend class Twiddle;
+
+  inline double& operator[](std::size_t index)
+  {
+    return pid_[index];
+  }
+
+  inline void reset()
+  {
+    cte_ = 0;
+    prev_cte_ = 0;
+    integral_cte_ = 0;
+    total_error_ = 0;
+    max_cte_ = 0;
+    iteration_ = 0;
+  }
+
+  inline unsigned int getIteration() const { return iteration_; }
+
+private:
+  double cte_;
+  double prev_cte_;
+  double integral_cte_;
+  double total_error_;
+  unsigned int iteration_;
+  double max_cte_;
+  std::vector<double> pid_;
+
+
+
+
 };
 
 #endif /* PID_H */
