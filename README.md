@@ -15,8 +15,8 @@ The Twiddle method is implemented in the class Twiddle. It is setup to run for 1
 and running with new values of P, I and D until the sum of dp values converge to a value less than a given tolerance
 (0.2 in this project).
 
-The throttle during the optimization was set up as a linear function of the steering angle, so that large absolute
-steering angle values would lead to a reduced throttle:
+The throttle was set up as a linear function of the steering angle, so that large absolute steering angle values would
+ lead to a reduced throttle:
 
 throttle = 0.4 - 0.39 * fabs(steering);
 
