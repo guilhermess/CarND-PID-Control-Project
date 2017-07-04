@@ -46,6 +46,8 @@ bool Twiddle::update() {
   }
   else {
     pid_.reset();
+    cout << "Twiddle pid: ";
+    cout << "P: " << pid_[0] << " I: " << pid_[1] << " D: " << pid_[2] << endl;
     return true;
   }
 }

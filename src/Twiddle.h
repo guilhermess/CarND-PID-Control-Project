@@ -17,11 +17,10 @@ public:
           const vector<double> &dp) : pid_{pid},
                                       num_iterations_{num_iterations},
                                       tolerance_{tolerance},
-                                      dp_(3), best_error_{std::numeric_limits<double>::max()},
-                                      index_{0}, previous_increased_{false}, finished_{false}, best_pid_(3)
+                                      dp_(dp), best_error_{std::numeric_limits<double>::max()},
+                                      index_{0}, previous_increased_{true}, finished_{false}, best_pid_(3)
   {
     for ( auto i = 0; i < 3; ++i) {
-      dp_[i] = dp[i];
       if ( i == 0 )
         pid_[i] = dp_[i];
       else

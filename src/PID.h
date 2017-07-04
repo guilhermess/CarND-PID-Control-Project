@@ -30,8 +30,6 @@ public:
 
   double getSteering() const;
 
-  double getMaxCte() const { return max_cte_; }
-
 protected:
   friend class Twiddle;
 
@@ -46,7 +44,6 @@ protected:
     prev_cte_ = 0;
     integral_cte_ = 0;
     total_error_ = 0;
-    max_cte_ = 0;
     iteration_ = 0;
   }
 
@@ -58,7 +55,6 @@ private:
   double integral_cte_;
   double total_error_;
   unsigned int iteration_;
-  double max_cte_;
   std::vector<double> pid_;
 
 

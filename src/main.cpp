@@ -40,14 +40,11 @@ int main(int argc, char **argv)
     cout << "0 or no parameter: use saved pid" << endl;
     return 0;
   }
-  bool use_twiddle = false;
-  if ( argc == 2 && string(argv[1]) == "1" )
-    use_twiddle = true;
 
-  PID pid{2.87, 0.0, 13.85};
+  PID pid{2.96113, 0.0, 4.32024};
 
   Twiddle *twiddle{nullptr};
-  if ( use_twiddle )
+  if ( argc == 2 && string(argv[1]) == "1" )
     twiddle = new Twiddle(pid, 1000, 0.2, {1.0, 1.0, 1.0});
 
   h.onMessage([&pid, &twiddle](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
@@ -77,7 +74,7 @@ int main(int argc, char **argv)
 
             json msgJson;
             msgJson["steering_angle"] = steer_value;
-            auto throttle = 0.8 - (0.78 * fabs(cte)/pid.getMaxCte());
+            auto throttle = 0.4 - 0.39 * fabs(steer_value);
             msgJson["throttle"] = throttle;
             auto msg = "42[\"steer\"," + msgJson.dump() + "]";
             ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);

@@ -24,8 +24,6 @@ void PID::UpdateError(double cte) {
   prev_cte_ = cte_;
   cte_ = cte;
   integral_cte_ += cte;
-  if ( fabs(cte) > max_cte_ )
-    max_cte_ = fabs(cte);
 }
 
 
